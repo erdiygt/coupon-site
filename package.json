@@ -1,0 +1,56 @@
+{
+  "name": "indirim-kodu-sitesi",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "analyze": "next build",
+    "assets:generate": "node scripts/generate-brand-assets.mjs",
+    "postinstall": "node scripts/generate-brand-assets.mjs",
+    "logos:optimize": "node scripts/optimize-store-logos.mjs",
+    "logos:download": "node scripts/download-store-logos.mjs",
+    "auth:hash": "node scripts/hash-admin-password.mjs",
+    "db:seed": "tsx scripts/seed-supabase.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.108.2",
+    "@tiptap/extension-image": "^3.27.1",
+    "@tiptap/extension-link": "^3.27.1",
+    "@tiptap/extension-placeholder": "^3.27.1",
+    "@tiptap/extension-text-align": "^3.27.1",
+    "@tiptap/extension-underline": "^3.27.1",
+    "@tiptap/pm": "^3.27.1",
+    "@tiptap/react": "^3.27.1",
+    "@tiptap/starter-kit": "^3.27.1",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.36.3",
+    "isomorphic-dompurify": "^3.18.0",
+    "next": "16.2.9",
+    "nodemailer": "^9.0.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^16.2.9",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/nodemailer": "^8.0.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4",
+    "tsx": "^4.22.4",
+    "typescript": "^5"
+  }
+}

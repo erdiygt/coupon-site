@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #f4f4f5;
+  --color-foreground: #18181b;
+  --color-primary: #22c55e;
+  --color-primary-dark: #16a34a;
+  --color-primary-light: #dcfce7;
+  --color-card: #ffffff;
+  --color-muted: #71717a;
+  --color-border: #e4e4e7;
+  --font-sans: var(--font-plus-jakarta), system-ui, sans-serif;
+}
+
+:root {
+  --background: #f4f4f5;
+  --foreground: #18181b;
+  --primary: #22c55e;
+  --primary-dark: #16a34a;
+  --primary-light: #dcfce7;
+  --card: #ffffff;
+  --muted: #71717a;
+  --border: #e4e4e7;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@keyframes coupon-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.coupon-modal-enter {
+  animation: coupon-modal-in 0.25s ease-out;
+}
+
+@layer base {
+  button:not(:disabled),
+  input[type="button"]:not(:disabled),
+  input[type="submit"]:not(:disabled),
+  input[type="reset"]:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  input[type="button"]:disabled,
+  input[type="submit"]:disabled,
+  input[type="reset"]:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.rich-editor-content {
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: #18181b;
+}
+
+.rich-editor-content p.is-editor-empty:first-child::before {
+  color: #a1a1aa;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.rich-editor-content p + p {
+  margin-top: 0.75rem;
+}
+
+.rich-editor-content h2 {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.rich-editor-content h3 {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.rich-editor-content ul,
+.rich-editor-content ol {
+  margin-top: 0.5rem;
+  padding-left: 1.25rem;
+}
+
+.rich-editor-content ul {
+  list-style-type: disc;
+}
+
+.rich-editor-content ol {
+  list-style-type: decimal;
+}
+
+.rich-editor-content img {
+  margin: 0.75rem 0;
+  max-width: 100%;
+  border-radius: 0.5rem;
+}
+
+.rich-editor-content img[data-align="left"],
+.rich-editor-content img.rich-image-align-left,
+.rich-content img[data-align="left"],
+.rich-content img.rich-image-align-left {
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.rich-editor-content img[data-align="center"],
+.rich-editor-content img.rich-image-align-center,
+.rich-content img[data-align="center"],
+.rich-content img.rich-image-align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rich-editor-content img[data-align="right"],
+.rich-editor-content img.rich-image-align-right,
+.rich-content img[data-align="right"],
+.rich-content img.rich-image-align-right {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.rich-editor-content [style*="text-align"],
+.rich-content [style*="text-align"] {
+  width: 100%;
+}
+
+.rich-content {
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--muted);
+}
+
+.rich-content h2 {
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.rich-content h2:first-child {
+  margin-top: 0;
+}
+
+.rich-content h3 {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.rich-content p + p {
+  margin-top: 1rem;
+}
+
+.rich-content ul,
+.rich-content ol {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.rich-content ul {
+  list-style-type: disc;
+}
+
+.rich-content ol {
+  list-style-type: decimal;
+}
+
+.rich-content li + li {
+  margin-top: 0.25rem;
+}
+
+.rich-content a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.rich-content img {
+  margin: 1rem 0;
+  max-width: 100%;
+  border-radius: 0.75rem;
+}
+
+.rich-content p[style*="text-align: center"],
+.rich-content h2[style*="text-align: center"],
+.rich-content h3[style*="text-align: center"] {
+  text-align: center;
+}
+
+.rich-content p[style*="text-align: right"],
+.rich-content h2[style*="text-align: right"],
+.rich-content h3[style*="text-align: right"] {
+  text-align: right;
+}
+
+.rich-content p[style*="text-align: justify"],
+.rich-content h2[style*="text-align: justify"],
+.rich-content h3[style*="text-align: justify"] {
+  text-align: justify;
+}
+
+.rich-content blockquote {
+  margin-top: 1rem;
+  border-left: 3px solid var(--primary-light);
+  padding-left: 1rem;
+  color: var(--foreground);
+}
