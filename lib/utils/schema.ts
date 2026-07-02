@@ -3,7 +3,7 @@ import type { Coupon, Store } from "@/lib/types";
 import { resolveCouponLink } from "@/lib/utils/coupon-links";
 import type { BreadcrumbItem } from "@/lib/types/breadcrumb";
 import type { StoreFaq } from "@/lib/types";
-import { stripHtml } from "@/lib/utils/html";
+import { stripHtml } from "@/lib/utils/sanitize-rich-html";
 
 export function buildBreadcrumbSchema(items: BreadcrumbItem[]) {
   if (items.length === 0) return null;

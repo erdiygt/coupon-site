@@ -1,75 +1,3 @@
-import DOMPurify from "isomorphic-dompurify";
-
-const RICH_TEXT_ALLOWED_TAGS = [
-  "p",
-  "br",
-  "strong",
-  "b",
-  "em",
-  "i",
-  "u",
-  "s",
-  "h2",
-  "h3",
-  "ul",
-  "ol",
-  "li",
-  "a",
-  "img",
-  "blockquote",
-  "span",
-  "div",
-];
-
-const RICH_TEXT_ALLOWED_ATTR = [
-  "href",
-  "src",
-  "alt",
-  "title",
-  "target",
-  "rel",
-  "class",
-  "data-align",
-  "style",
-];
-
-const ALLOWED_URI_REGEXP =
-  /^(?:(?:https):|mailto:|tel:|\/uploads\/|\/logo\.png|\/favicon\.png|\/og-default\.png)/i;
-
-let hooksRegistered = false;
-
-function sanitizeStyleAttribute(value: string): boolean {
-  return /^text-align:\s*(left|center|right|justify)\s*;?\s*$/i.test(value.trim());
-}
-
-function ensureSanitizerHooks(): void {
-  if (hooksRegistered) return;
-
-  DOMPurify.addHook("uponSanitizeAttribute", (_node, data) => {
-    if (data.attrName === "style" && !sanitizeStyleAttribute(data.attrValue)) {
-      data.keepAttr = false;
-    }
-
-    if ((data.attrName === "href" || data.attrName === "src") && data.attrValue) {
-      if (!ALLOWED_URI_REGEXP.test(data.attrValue.trim())) {
-        data.keepAttr = false;
-      }
-    }
-
-    if (data.attrName === "target" && data.attrValue === "_blank") {
-      data.attrValue = "_blank";
-    }
-  });
-
-  DOMPurify.addHook("afterSanitizeAttributes", (node) => {
-    if (node.tagName === "A" && node.getAttribute("target") === "_blank") {
-      node.setAttribute("rel", "noopener noreferrer");
-    }
-  });
-
-  hooksRegistered = true;
-}
-
 export function isHtmlContent(value: string): boolean {
   return /<[a-z][\s\S]*>/i.test(value);
 }
@@ -97,20 +25,7 @@ export function plainTextToHtml(text: string): string {
     .join("");
 }
 
-export function sanitizeRichHtml(html: string): string {
-  if (!html?.trim()) return "";
-
-  ensureSanitizerHooks();
-
-  return DOMPurify.sanitize(html, {
-    ALLOWED_TAGS: RICH_TEXT_ALLOWED_TAGS,
-    ALLOWED_ATTR: RICH_TEXT_ALLOWED_ATTR,
-    ALLOW_DATA_ATTR: false,
-    ALLOWED_URI_REGEXP,
-  });
-}
-
-/** Liste önizlemeleri için hafif stripper (jsdom/DOMPurify yükü yok). */
+/** Liste önizlemeleri için hafif stripper (DOM bağımlılığı yok). */
 export function stripHtmlPreview(html: string): string {
   if (!html?.trim()) return "";
 
@@ -122,14 +37,6 @@ export function stripHtmlPreview(html: string): string {
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-export function stripHtml(html: string): string {
-  if (!html?.trim()) return "";
-
-  return DOMPurify.sanitize(html, { ALLOWED_TAGS: [] })
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -146,3 +53,5 @@ export function safeJsonLd(data: unknown): string {
     .replace(/>/g, "\\u003e")
     .replace(/&/g, "\\u0026");
 }
+
+export { sanitizeRichHtml, stripHtml } from "@/lib/utils/sanitize-rich-html";

@@ -1,5 +1,6 @@
 import type { CategoryInput, CouponInput, StoreFaq, StoreInput } from "@/lib/types";
-import { plainTextToHtml, sanitizeRichHtml } from "@/lib/utils/html";
+import { plainTextToHtml } from "@/lib/utils/html";
+import { sanitizeRichHtml } from "@/lib/utils/sanitize-rich-html";
 import { safeHttpsUrlString } from "@/lib/utils/safe-url";
 import { assertSlugAvailable } from "@/lib/validation/reserved-slugs";
 

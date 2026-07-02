@@ -1,4 +1,5 @@
-import { plainTextToHtml, sanitizeRichHtml } from "@/lib/utils/html";
+import { plainTextToHtml } from "@/lib/utils/html";
+import { sanitizeRichHtml } from "@/lib/utils/sanitize-rich-html";
 
 interface RichTextContentProps {
   content?: string | null;
